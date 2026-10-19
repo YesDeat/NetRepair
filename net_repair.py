@@ -444,7 +444,18 @@ def run_all(report, admin):
 
 # ----------------------------- 图形界面 / GUI -----------------------------
 
+def hide_console():
+    """隐藏控制台黑窗（仅 GUI 模式调用）/ Hide console window (GUI mode only)."""
+    try:
+        hwnd = ctypes.windll.kernel32.GetConsoleWindow()
+        if hwnd:
+            ctypes.windll.user32.ShowWindow(hwnd, 0)  # SW_HIDE
+    except Exception:
+        pass
+
+
 def gui():
+    hide_console()  # GUI 模式隐藏黑窗 / hide console in GUI mode
     import tkinter as tk
     from tkinter import font as tkfont
 
